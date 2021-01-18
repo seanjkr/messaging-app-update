@@ -38,7 +38,7 @@ Go to your google firebase project dash, click the gear next to the project name
 
 
 ![Firestore-credentials-image]
-(./assets/firestore.png)
+(https://raw.githubusercontent.com/seanjkr/messaging-app-update/master/assets/firestore.png)
 
 
 
