@@ -44,10 +44,10 @@ Go to your google firebase project dash, click the gear next to the project name
 
 ### Screens:
 
-![Start Image](https://raw.githubusercontent.com/seanjkr/messaging-app-update/master/assets/start.PNG =250x)
+<img src="https://raw.githubusercontent.com/seanjkr/messaging-app-update/master/assets/start.PNG" width="250px" />
 
 
-![Chat Image](https://raw.githubusercontent.com/seanjkr/messaging-app-update/master/assets/chat.PNG =250x)
+<img src="https://raw.githubusercontent.com/seanjkr/messaging-app-update/master/assets/chat.PNG" width="250px" />
 
 
 
