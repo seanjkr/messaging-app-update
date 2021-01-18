@@ -16,59 +16,75 @@ export default class CustomActions extends Component {
   }
 
   chooseImage = async () => {
-    const {status} = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+    try {
+      const {status} = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
 
-    if(status === 'granted'){
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: 'Images'
-      }).catch(error => console.log(error));
+      if(status === 'granted'){
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: 'Images'
+        }).catch(error => console.log(error));
 
-      if (!result.cancelled){
-        const imageUrl = await this.uploadImage(result.uri);
-        this.props.onSend({image: imageUrl});
+        if (!result.cancelled){
+          const imageUrl = await this.uploadImage(result.uri);
+          this.props.onSend({image: imageUrl});
+        }
       }
+    } catch (error) {
+      console.log(error);
     }
   }
 
   takePicture = async () =>{
-    const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY, Permissions.CAMERA);
+    try {
+      const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY, Permissions.CAMERA);
     
-    if(status === 'granted'){
-      let result = await ImagePicker.launchCameraAsync({
-        mediaTypes: 'Images'
-      }).catch(error => console.log(error));
+      if(status === 'granted'){
+        let result = await ImagePicker.launchCameraAsync({
+          mediaTypes: 'Images'
+        }).catch(error => console.log(error));
 
-      if (!result.cancelled){
-        const imageUrl = await this.uploadImage(result.uri);
-        this.props.onSend({image: imageUrl});
+        if (!result.cancelled){
+          const imageUrl = await this.uploadImage(result.uri);
+          this.props.onSend({image: imageUrl});
+        }
       }
-    } 
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   uploadImage = async (uri) => {
-    const response = await fetch(uri);
-    const blob = await response.blob();
-    const imageUri = uri.split('/');
-    const imageName = imageUri[imageUri.length -1];
-    const ref = firebase.storage().ref().child('images/' + imageName);
-    const snapshot = await ref.put(blob);
-    const imageUrl = await snapshot.ref.getDownloadURL();
-    return imageUrl;
+    try {
+      const response = await fetch(uri);
+      const blob = await response.blob();
+      const imageUri = uri.split('/');
+      const imageName = imageUri[imageUri.length -1];
+      const ref = firebase.storage().ref().child(`images/ ${imageName}`);
+      const snapshot = await ref.put(blob);
+      const imageUrl = await snapshot.ref.getDownloadURL();
+      return imageUrl;
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   getLocation = async () => {
-    const {status} = await Permissions.askAsync(Permissions.LOCATION);
+    try {
+      const {status} = await Permissions.askAsync(Permissions.LOCATION);
 
-    if(status === 'granted') {
-      let result = await Location.getCurrentPositionAsync({}).catch(error => console.log(error));
-      if(result) {
-        this.props.onSend({
-          location: {
-            longitude: result.coords.longitude,
-            latitude: result.coords.latitude
-          }
-        });
+      if(status === 'granted') {
+        let result = await Location.getCurrentPositionAsync({}).catch(error => console.log(error));
+        if(result) {
+          this.props.onSend({
+            location: {
+              longitude: result.coords.longitude,
+              latitude: result.coords.latitude
+            }
+          });
+        }
       }
+    } catch(error) {
+      console.log(error);
     }
   }
 
