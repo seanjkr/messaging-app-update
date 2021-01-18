@@ -37,7 +37,7 @@ react-native-vector-icons
 Go to your google firebase project dash, click the gear next to the project name and go to settings -> general, and scroll down to see how to set up your firestore database with your app. Add your configuration credentials to the chat page:
 
 
-![Firestore-credentials-image]
+![Firestore credentials image]
 (https://raw.githubusercontent.com/seanjkr/messaging-app-update/master/assets/firestore.png)
 
 
